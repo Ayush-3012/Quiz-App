@@ -1,0 +1,195 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.body {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(210, 161, 210);
+}
+.body .main {
+  margin: 2rem;
+  border: 2px solid rgb(166, 89, 166);
+  border-radius: 22px;
+}
+.body .main .upper-main {
+  border-radius: 20px;
+  height: 50vh;
+  width: 25vw;
+  max-width: 100%;
+  min-width: 100%;
+}
+.body .main .upper-main .upper-main-img {
+  border-radius: 20px;
+  height: 100%;
+  width: 100%;
+}
+.body .main .upper-main h4 {
+  position: relative;
+  bottom: 7.5rem;
+  color: aquamarine;
+  padding: 0.2rem 2.5rem;
+}
+.body .main .upper-main .quiz-category {
+  z-index: 2;
+  position: relative;
+  bottom: 7.8rem;
+}
+.body .main .lower-main .lower-main-head {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 2rem;
+}
+.body .main .lower-main .lower-main-head a button {
+  background-color: aquamarine;
+  height: 2.2rem;
+  border: none;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  color: purple;
+  font-weight: bolder;
+  transition: all 0.3s ease-in-out;
+  transform: translateY(1);
+}
+.body .main .lower-main .lower-main-head a:hover button {
+  background-color: purple;
+  color: aqua;
+  transition: all 0.3s ease-in-out;
+  transform: translateY(-0.15rem);
+}
+.body .main .quiz-category {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 2rem;
+}
+.body .main .quiz-category a {
+  text-decoration: none;
+}
+.body .main .quiz-category a .categories {
+  height: 5rem;
+  width: 5rem;
+  border: 2px solid purple;
+  border-radius: 10px;
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  color: purple;
+  background-color: aquamarine;
+  transition: all 0.4s ease-in-out;
+  transform: translateY(1);
+}
+.body .main .quiz-category a .categories .category-head {
+  font-size: larger;
+  margin: 2px 5px;
+}
+.body .main .quiz-category a .categories .category-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.body .main .quiz-category a .categories .category-icon i {
+  font-size: 2.5rem;
+}
+.body .main .quiz-category a:hover .categories {
+  background-color: purple;
+  color: aqua;
+  transition: all 0.3s ease-in-out;
+  transform: translateY(-0.25rem);
+}
+
+.quiz-body-upper-main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.quiz-body-upper-main .counter #countdown {
+  position: relative;
+  margin: auto;
+  margin-top: 100px;
+  height: 40px;
+  width: 40px;
+  text-align: center;
+}
+.quiz-body-upper-main .counter #countdown #countdown-number {
+  color: white;
+  display: inline-block;
+  line-height: 40px;
+}
+.quiz-body-upper-main .counter #countdown #countdown-number svg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  transform: rotateY(-180deg) rotateZ(-90deg);
+}
+.quiz-body-upper-main .counter svg circle {
+  stroke-dasharray: 113px;
+  stroke-dashoffset: 0px;
+  stroke-linecap: round;
+  stroke-width: 2px;
+  stroke: white;
+  fill: none;
+  animation: countdown 10s linear infinite forwards;
+}
+@keyframes countdown {
+  from {
+    stroke-dashoffset: 0px;
+  }
+  to {
+    stroke-dashoffset: 113px;
+  }
+}
+.quiz-body-upper-main .question-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 90%;
+  background-color: rgb(210, 161, 210);
+  border-radius: 20px;
+  padding: 2rem 1rem;
+  position: relative;
+  bottom: 2.5rem;
+  box-shadow: 2px 2px 8px purple;
+}
+.quiz-body-upper-main .question-body .question-counter {
+  color: purple;
+  text-align: center;
+  font-size: 1.7rem;
+  font-weight: bolder;
+}
+.quiz-body-upper-main .question-body .question {
+  color: purple;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.quiz-body-lower-main {
+  border-radius: 20px;
+}
+.quiz-body-lower-main .option-body {
+  display: flex;
+  width: 100%;
+}
+.quiz-body-lower-main .option-body .options {
+  border: 2px solid purple;
+  margin: 0.8rem 0.6rem;
+  border-radius: 10px;
+  padding: 1.2rem 0.8rem;
+  display: flex;
+  justify-content: space-around;
+  gap: 10rem;
+  width: 25vw;
+}
+.quiz-body-lower-main .option-body .options h5 {
+  font-size: 1.8rem;
+  font-weight: bolder;
+}
+.quiz-body-lower-main .option-body .options input[type=radio] {
+  width: 2rem;
+}/*# sourceMappingURL=main.css.map */

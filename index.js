@@ -1,8 +1,9 @@
 import express from "express";
 import bodyParser from "body-parser";
+import _ from "lodash";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-import apiReq from "./apiCall.js";
+import { apiReq } from "./apiCall.js";
 
 const app = express();
 const port = 3000;
@@ -14,13 +15,31 @@ app.set("public", __dirname + "/public");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const quizQs = await apiReq;
-// quizQs.forEach(function(item){
-//     console.log(item.category)
-// })
+app.get("/", async (req, res) => {
+  res.render("index");
+});
 
-app.get("/", function (req, res) {
-  res.render("index", { questions: quizQs });
+app.get("/:category", async (req, res) => {
+  const requestedCategory = _.lowerCase(req.params.category);
+  var category;
+  switch (requestedCategory) {
+    case "space":
+      category = "17";
+      break;
+    case "sports":
+      category = "21";
+      break;
+    case "history":
+      category = "23";
+      break;
+    default:
+      category = "-1";
+  }
+
+  const quizQs = await apiReq(category);
+  category != "-1"
+    ? res.render("quiz", { questions: quizQs })
+    : res.redirect("/");
 });
 
 app.listen(port, function () {
