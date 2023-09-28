@@ -19,32 +19,37 @@ app.get("/", async (req, res) => {
   res.render("index");
 });
 
-let quizQs;
+let quizQs, index;
 app.get("/:category", async (req, res) => {
   const requestedCategory = req.params.category;
   let category;
   if (requestedCategory == "space") {
     category = 17;
+    index = 0;
     quizQs = await apiReq(category);
   } else if (requestedCategory == "sports") {
     category = 21;
+    index = 0;
     quizQs = await apiReq(category);
   } else if (requestedCategory == "history") {
     category = 23;
+    index = 0;
     quizQs = await apiReq(category);
   }
 
   res.render("quiz");
 });
-
-var index = 1;
 app.get("/quiz/nextQuestion", (req, res) => {
-  if (index <= 20) {
+  if (index < 20) {
     res.json(quizQs[index]);
     index++;
   } else {
     res.json("null");
   }
+});
+
+app.get("/quiz/leaderboard", (req, res) => {
+  res.render("leaderBoard");
 });
 
 app.listen(port, function () {

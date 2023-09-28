@@ -107,48 +107,49 @@
   align-items: center;
   flex-direction: column;
 }
+.quiz-body-upper-main .counter {
+  height: 0;
+  position: relative;
+  bottom: 80px;
+}
 .quiz-body-upper-main .counter #countdown {
   position: relative;
-  margin: auto;
-  margin-top: 100px;
-  height: 40px;
-  width: 40px;
+  z-index: 2;
+  height: 80px;
+  width: 80px;
   text-align: center;
 }
 .quiz-body-upper-main .counter #countdown #countdown-number {
-  color: white;
-  display: inline-block;
-  line-height: 40px;
-}
-.quiz-body-upper-main .counter #countdown #countdown-number svg {
-  position: absolute;
-  top: 0;
-  right: 0;
   width: 40px;
   height: 40px;
-  transform: rotateY(-180deg) rotateZ(-90deg);
+  text-align: center;
+  font-weight: bolder;
+  font-size: 2rem;
+  position: absolute;
+  top: 18px;
+  left: 18px;
 }
-.quiz-body-upper-main .counter svg circle {
-  stroke-dasharray: 113px;
+.quiz-body-upper-main .counter #countdown .countDown {
+  stroke-dasharray: 185px;
   stroke-dashoffset: 0px;
   stroke-linecap: round;
-  stroke-width: 2px;
-  stroke: white;
-  fill: none;
-  animation: countdown 10s linear infinite forwards;
+  stroke-width: 7px;
+  stroke: rgb(255, 0, 85);
+  fill: rgb(210, 161, 210);
+  animation: countdownAnimation 20s linear infinite forwards;
 }
-@keyframes countdown {
+@keyframes countdownAnimation {
   from {
     stroke-dashoffset: 0px;
   }
   to {
-    stroke-dashoffset: 113px;
+    stroke-dashoffset: 185px;
   }
 }
 .quiz-body-upper-main .question-body {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   width: 90%;
   background-color: rgb(210, 161, 210);
   border-radius: 20px;
@@ -163,33 +164,232 @@
   font-size: 1.7rem;
   font-weight: bolder;
 }
+.quiz-body-upper-main .question-body .question-counter .nextQesNum {
+  color: rgb(255, 0, 85);
+}
 .quiz-body-upper-main .question-body .question {
   color: purple;
   font-size: 1.5rem;
   text-align: center;
 }
 
-.quiz-body-lower-main {
+.quiz-body-lower-main,
+.lower-main {
   border-radius: 20px;
 }
-.quiz-body-lower-main .option-body {
+.quiz-body-lower-main .option-body,
+.lower-main .option-body {
   display: flex;
-  width: 100%;
+  justify-content: center;
 }
-.quiz-body-lower-main .option-body .options {
+.quiz-body-lower-main .option-body .options,
+.lower-main .option-body .options {
   border: 2px solid purple;
-  margin: 0.8rem 0.6rem;
+  margin: 0.5rem 0.4rem;
   border-radius: 10px;
-  padding: 1.2rem 0.8rem;
+  padding: 0.8rem 0.5rem;
   display: flex;
-  justify-content: space-around;
-  gap: 10rem;
-  width: 25vw;
+  justify-content: space-evenly;
+  cursor: pointer;
+  width: 20vw;
+  transform: scale(1);
+  transition: all 0.3s ease-in-out;
+  color: purple;
 }
-.quiz-body-lower-main .option-body .options h5 {
+.quiz-body-lower-main .option-body .options .option-title,
+.lower-main .option-body .options .option-title {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+}
+.quiz-body-lower-main .option-body .options .option-title h5,
+.lower-main .option-body .options .option-title h5 {
   font-size: 1.8rem;
   font-weight: bolder;
 }
-.quiz-body-lower-main .option-body .options input[type=radio] {
-  width: 2rem;
+.quiz-body-lower-main .option-body .options .radio-body,
+.lower-main .option-body .options .radio-body {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.quiz-body-lower-main .option-body .options .radio-body input[type=radio],
+.lower-main .option-body .options .radio-body input[type=radio] {
+  transform: scale(2);
+}
+.quiz-body-lower-main .option-body .options:hover,
+.lower-main .option-body .options:hover {
+  transform: scale(1.03);
+  transition: all 0.3s ease-in-out;
+  color: aquamarine;
+}
+.quiz-body-lower-main .nextBtn,
+.lower-main .nextBtn {
+  margin: 6px 4px;
+}
+.quiz-body-lower-main .nextBtn .btn-text,
+.lower-main .nextBtn .btn-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.quiz-body-lower-main .nextBtn .btn-text .submit-btn,
+.lower-main .nextBtn .btn-text .submit-btn {
+  font-size: 1.5rem;
+  background-color: r;
+  height: 2rem;
+  color: purple;
+  width: 50%;
+  border: 2px solid purple;
+  background-color: rgb(210, 161, 210);
+  box-shadow: 2px 2px 5px purple;
+  padding: 2px 8px;
+  border-radius: 15px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+.quiz-body-lower-main .nextBtn .btn-text .submit-btn:hover,
+.lower-main .nextBtn .btn-text .submit-btn:hover {
+  background-color: purple;
+  color: rgb(210, 161, 210);
+  transition: all 0.3s ease-in-out;
+}
+
+.result {
+  display: none;
+  margin: 0.5rem;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.result .scoreCard {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.3rem;
+  color: purple;
+}
+.result .scoreCard h2 {
+  padding: 1rem;
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  text-decoration: underline;
+  font-weight: bolder;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  border: 4px solid rgb(166, 89, 166);
+}
+.result .scoreCard .scores {
+  width: 100%;
+  text-align: center;
+  border: 4px solid rgb(166, 89, 166);
+}
+.result .scoreCard .scores .scoreUp,
+.result .scoreCard .scores .scoreDown {
+  display: flex;
+  justify-content: space-around;
+}
+.result .scoreCard .scores .scoreUp h4,
+.result .scoreCard .scores .scoreDown h4 {
+  margin: 0.7rem 0.6rem;
+  font-size: 1.2rem;
+  font-weight: bolder;
+}
+.result .whatNext {
+  border: 4px solid rgb(166, 89, 166);
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+.result .whatNext .choicesUp,
+.result .whatNext .choicesDown {
+  display: flex;
+  justify-content: space-around;
+  margin: 0.4rem 0.2rem;
+}
+.result .whatNext .choicesUp .choicesUp-div,
+.result .whatNext .choicesUp .choicesDown-div,
+.result .whatNext .choicesDown .choicesUp-div,
+.result .whatNext .choicesDown .choicesDown-div {
+  width: 33%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.result .whatNext .choicesUp .choicesUp-div a,
+.result .whatNext .choicesUp .choicesDown-div a,
+.result .whatNext .choicesDown .choicesUp-div a,
+.result .whatNext .choicesDown .choicesDown-div a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: purple;
+  transform: scale(1);
+  transition: all 0.3s ease-in-out;
+}
+.result .whatNext .choicesUp .choicesUp-div a i,
+.result .whatNext .choicesUp .choicesDown-div a i,
+.result .whatNext .choicesDown .choicesUp-div a i,
+.result .whatNext .choicesDown .choicesDown-div a i {
+  background-color: aquamarine;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 1.2rem;
+}
+.result .whatNext .choicesUp .choicesUp-div a h6,
+.result .whatNext .choicesUp .choicesDown-div a h6,
+.result .whatNext .choicesDown .choicesUp-div a h6,
+.result .whatNext .choicesDown .choicesDown-div a h6 {
+  font-size: 1.2rem;
+  font-weight: bolder;
+}
+.result .whatNext .choicesUp .choicesUp-div a:hover,
+.result .whatNext .choicesUp .choicesDown-div a:hover,
+.result .whatNext .choicesDown .choicesUp-div a:hover,
+.result .whatNext .choicesDown .choicesDown-div a:hover {
+  transform: scale(1.12);
+  transition: all 0.3s ease-in-out;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  padding: 0.2rem;
+  border-radius: 10px;
+  background-color: aquamarine;
+}
+table tr {
+  background-color: rgb(210, 161, 210);
+  color: purple;
+}
+table tr td.profile-name {
+  width: 65%;
+  text-align: center;
+}
+table tr td.profile-img {
+  width: 10%;
+}
+table tr td.profile-img .img {
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  background-color: blanchedalmond;
+  border-radius: 50%;
+}
+table tr td.profile-rank {
+  width: 10%;
+  text-align: center;
+}
+table tr td.profile-point {
+  width: 15%;
+}
+table tr td {
+  padding: 10px;
+  font-size: 1.2rem;
 }/*# sourceMappingURL=main.css.map */

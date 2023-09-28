@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/styles/main.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Quiz App - Ayush - 3012</title>
+  </head>
+  <body class="body">
+    <main class="main">
+      <div class="leaderboard-body-upper-main upper-main">
+        <img
+          src="/assests/images/background-image3.png"
+          alt="background-image"
+          class="upper-main-img"
+        />
+        <div class="top-players">
+          <table>
+            <tbody>
+              <% var count = 0 %> 
+              <% for(var i=0; i<8; i++) {%>
+              <tr>
+                <td class="profile-rank"><%=++count%></td>
+                <td class="profile-img">
+                  <i class="fa-solid fa-user img"></i>
+                </td>
+                <td class="profile-name">
+                  <p>Name</p>
+                </td>
+                <td class="profile-point">
+                  <p>18pt</p>
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

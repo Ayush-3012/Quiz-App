@@ -21,21 +21,20 @@
           alt="background-image"
           class="upper-main-img"
         />
-        <!-- <div class="counter">
+        <div class="counter">
           <div id="countdown">
-              <div id="countdown-number"></div>
-              <svg>
-                <circle r="18" cx="20" cy="20"></circle>
-              </svg>
-            </div>
+            <div id="countdown-number"></div>
+            <svg class="countDown2">
+              <circle class="countDown" r="30" cx="38" cy="38"></circle>
+            </svg>
           </div>
-        </div> -->
+        </div>
         <div class="question-body">
           <div class="question-counter">
-            <h3>Question 0/20</h3>
+            <h3>Question <span class="nextQesNum">0</span>/20</h3>
           </div>
           <div class="question">
-            <p id="para">Question Appear Here</p>
+            <p id="para"></p>
           </div>
         </div>
       </div>
@@ -43,36 +42,139 @@
         <div class="option-body">
           <form action="">
             <div class="options">
-              <h5 id="option0">Option 1</h5>
-              <input type="radio" name="option-grp" />
+              <div class="option-title">
+                <h5 id="option0">-----------</h5>
+              </div>
+              <div class="radio-body">
+                <input type="radio" name="option-grp" />
+              </div>
             </div>
             <div class="options">
-              <h5 id="option1">Option 2</h5>
-              <input type="radio" name="option-grp" />
+              <div class="option-title">
+                <h5 id="option1">-----------</h5>
+              </div>
+              <div class="radio-body">
+                <input type="radio" name="option-grp" />
+              </div>
             </div>
             <div class="options">
-              <h5 id="option2">Option 3</h5>
-              <input type="radio" name="option-grp" />
+              <div class="option-title">
+                <h5 id="option2">-----------</h5>
+              </div>
+              <div class="radio-body">
+                <input type="radio" name="option-grp" />
+              </div>
             </div>
             <div class="options">
-              <h5 id="option3">Option 4</h5>
-              <input type="radio" name="option-grp" />
+              <div class="option-title">
+                <h5 id="option3">-----------</h5>
+              </div>
+              <div class="radio-body">
+                <input type="radio" name="option-grp" />
+              </div>
             </div>
           </form>
+        </div>
+        <div class="nextBtn">
+          <span class="btn-text">
+            <button class="submit-btn" id="submit-btn">
+              Next
+              <i class="fa-solid fa-angles-right"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+      <div class="result">
+        <div class="scoreCard">
+          <h2>Your Scorecard</h2>
+          <div class="scores">
+            <div class="scoreUp">
+              <h4 class="totalQues">Total : 20</h4>
+              <h4 class="correctAns"></h4>
+            </div>
+            <div class="scoreDown">
+              <h4 class="incorrectAns"></h4>
+              <h4 class="unanswered"></h4>
+            </div>
+          </div>
+        </div>
+        <div class="whatNext">
+          <div class="choicesUp">
+            <div class="choicesUp-div">
+              <a href="/" class="play-again">
+                <i class="fa-solid fa-arrow-rotate-right"></i>
+                <h6>Play Again</h6>
+              </a>
+            </div>
+            <div class="choicesUp-div">
+              <a href="/" class="review-ans">
+                <i class="fa-solid fa-eye"></i>
+                <h6>Rivew Answer</h6>
+              </a>
+            </div>
+            <div class="choicesUp-div">
+              <a
+                href="https://mail.google.com/mail/u/0/#inbox?compose=new"
+                target="_blank"
+                class="share-score"
+              >
+                <i class="fa-solid fa-share-nodes"></i>
+                <h6>Share Score</h6>
+              </a>
+            </div>
+          </div>
+          <div class="choicesDown">
+            <div class="choicesDown-div">
+              <a href="/" class="generate-pdf">
+                <i class="fa-solid fa-file-pdf"></i>
+                <h6>Generate Pdf</h6>
+              </a>
+            </div>
+            <div class="choicesDown-div">
+              <a href="/" class="home">
+                <i class="fa-solid fa-house"></i>
+                <h6>Home</h6>
+              </a>
+            </div>
+            <div class="choicesDown-div">
+              <a href="/quiz/leaderboard" class="leaderboard">
+                <i class="fa-solid fa-chart-bar"></i>
+                <h6>Leaderboard</h6>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </main>
     <script>
+      var questionNumber = 1;
+      var correctSelection = 0;
+      var incorrectSelection = 0;
+      var unanswered = 0;
+      var correctOptionIdx;
+      var timer;
       function reloadDiv() {
+        clearTimeout(timer);
+        const optionDiv = document.querySelectorAll(".options");
+        optionDiv.forEach(function (item) {
+          item.removeEventListener("click", updateScorecard);
+        });
         fetch("/quiz/nextQuestion")
           .then((response) => response.json())
           .then((newQuestionData) => {
+            var incorrectOptionIdx = [0, 1, 2, 3];
+            correctOptionIdx = Math.floor(Math.random() * 4);
+            incorrectOptionIdx.splice(correctOptionIdx, 1);
+            var newQuestionBody = document.getElementById("para");
+            var nextQuestionNumber = document.querySelector(".nextQesNum");
+            const radioBtns = document.getElementsByName("option-grp");
+
+            radioBtns.forEach((item) => {
+              if (item.checked) item.checked = false;
+            });
             if (newQuestionData != "null") {
-              document.getElementById("para").innerHTML =
-                newQuestionData.question;
-              var correctOptionIdx = Math.floor(Math.random() * 4);
-              var incorrectOptionIdx = [0, 1, 2, 3];
-              incorrectOptionIdx.splice(correctOptionIdx, 1);
+              newQuestionBody.innerHTML = newQuestionData.question;
+              nextQuestionNumber.innerHTML = questionNumber++;
               var i = 0;
               newQuestionData.incorrect_answers.forEach(function (option) {
                 document.getElementById(
@@ -82,13 +184,92 @@
               });
               document.getElementById(`option${correctOptionIdx}`).innerHTML =
                 newQuestionData.correct_answer;
+
+              optionDiv.forEach(function (item) {
+                item.addEventListener("click", updateScorecard);
+              });
+              updateTimer(20);
+              timer = setTimeout(loadNextQuestion, 20000);
+            } else {
+              newQuestionBody.innerHTML = "";
+              document.querySelectorAll(".option-title").forEach((item) => {
+                item.firstElementChild.innerHTML = "-----------";
+              });
+              nextQuestionNumber.innerHTML = "0";
+              setInterval(showScorecard, 500);
             }
           });
       }
-      window.onload = function () {
+      function showScorecard() {
+        document.querySelector(".quiz-body-lower-main").style.display = "none";
+        document.querySelector(".question-body").style.display = "none";
+        document.querySelector(".counter").style.display = "none";
+        document.querySelector(".result").style.display = "block";
+        document.querySelector(
+          ".correctAns"
+        ).innerHTML = `Correct Answers: ${correctSelection}`;
+        document.querySelector(
+          ".incorrectAns"
+        ).innerHTML = `Incorrect Answers: ${incorrectSelection}`;
+        document.querySelector(
+          ".unanswered"
+        ).innerHTML = `Uanswered: ${unanswered}`;
+      }
+
+      function updateScorecard() {
+        const radio = this.querySelector('input[type="radio"]');
+        if (radio) {
+          radio.checked = true;
+        }
+      }
+      function loadNextQuestion() {
+        unanswered++;
         reloadDiv();
-        setInterval(reloadDiv, 2000);
-      };
+      }
+
+      function handleSubmitClick() {
+        // clearTimeout(timer);
+        const selectedRadioIndex = Array.from(
+          document.querySelectorAll(".options")
+        ).findIndex((item) => {
+          return item.querySelector('input[type="radio"]').checked;
+        });
+
+        if (selectedRadioIndex === correctOptionIdx) {
+          correctSelection++;
+        } else if (selectedRadioIndex !== -1) {
+          incorrectSelection++;
+        } else {
+          unanswered++;
+        }
+        reloadDiv();
+      }
+      reloadDiv();
+      timer = setTimeout(loadNextQuestion, 20000);
+      document
+        .getElementById("submit-btn")
+        .addEventListener("click", handleSubmitClick);
+
+      var timerInterval;
+      function updateTimer(countdown) {
+        var countdownNumberEl = document.getElementById("countdown-number");
+        var countDownEl = document.querySelector(".countDown");
+        countDownEl.style.strokeDashoffset = "185px";
+
+        countdownNumberEl.textContent = countdown;
+        if (timerInterval) {
+          clearInterval(timerInterval);
+        }
+        timerInterval = setInterval(function () {
+          countdown = --countdown <= 0 ? 20 : countdown;
+          countdownNumberEl.textContent = countdown;
+          if (!(countdown % 2)) countdownNumberEl.style.color = "black";
+          else countdownNumberEl.style.color = "white";
+          if (countdown <= 0) {
+            clearInterval(timerInterval);
+          }
+        }, 1000);
+      }
     </script>
   </body>
 </html>
